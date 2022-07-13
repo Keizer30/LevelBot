@@ -10,6 +10,7 @@
   "author": "valoogaming",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/builders": "^0.15.0",
     "blagues-api": "^2.1.0",
     "canvas": "^2.9.3",
     "chalk": "^4.1.1",
@@ -17,6 +18,7 @@
     "dotenv": "^10.0.0",
     "moment": "^2.29.4",
     "ms": "^2.1.3",
-    "node.js": "^0.0.1-security"
+    "node.js": "^0.0.1-security",
+    "weather-js": "^2.0.0"
   }
 }
