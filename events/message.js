@@ -1,13 +1,16 @@
-const Discord = require('discord.js');
+const Discord = require('discord.js')
 require("dotenv").config()
+const PREFIX = "+"
+
+
 
 module.exports = async(client, message) => {
 
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
-    if (!message.content.startsWith(process.env.PREFIX)) return;
+    if (!message.content.startsWith(PREFIX)) return;
 
-    const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
+    const args = message.content.slice(PREFIX.length).trim().split(/ +/g);
     const commande = args.shift();
     const command = client.commands.get(commande);
 
