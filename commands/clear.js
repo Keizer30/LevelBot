@@ -12,7 +12,7 @@ if (!amount || isNaN(amount) || amount < 1 || amount >100) {
 ;
 
 message.channel.messages.fetch({limit: amount}).then(messages =>{
-    message.channel.bulkDeconste(messages);
+    message.channel.bulkDelete(messages);
     message.reply("Les mesages ont bien été supprimé")
 })
 
