@@ -1,18 +1,28 @@
-module.exports.run = (client, message, args) => {
-    if (!message.guild.member(message.author).hasPermission('MANAGE_MESSAGES')) { return message.channel.send('Vous n\'avez pas la permission !'); }
-    if (!message.guild.member(client.user).hasPermission('MANAGE_MESSAGES')) { return message.channel.send('Le bot n\'a pas la permission nécessaire pour faire cela.'); }
-    const nickMember = message.id.users.first();
-    if (!nickMember) return message.channel.send("**Merci de mentionner un membre.**")
-    const nickname = args.slice(1).join(" ");
-    message.mentions.members.first().setNickname(nickname)
-    .then(() => {
-        if (nickname) {
-            message.channel.send("**Pseudo changé en : **"+nickname)
-        } else {
-            message.channel.send("**Pseudo rénitialisé**")
+const { MessageEmbed } = require('discord.js');
+const db = require('quick.db');
+
+module.exports = {
+    run: async (bot, message, args) => {
+        if (!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send("**tu n'as pas les permissions pour faire cela**");
+      
+        if (!args[0]) return message.channel.send("**Mentionner un membre du serveur pour que je puisse changer son pseudo  !**")
+      
+        let member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(r => r.user.username.toLowerCase() === args[0].toLocaleLowerCase()) || message.guild.members.cache.find(ro => ro.displayName.toLowerCase() === args[0].toLocaleLowerCase()) || message.member;
+        if (!member) return message.channel.send("**Please Enter A Username!**");
+
+        if (member.roles.highest.comparePositionTo(message.guild.me.roles.highest) >= 0) return message.channel.send('**Cannot Set or Change Nickname Of This User!**')
+
+        if (!args[1]) return message.channel.send("**Please Enter A Nickname**");
+
+        let nick = args.slice(1).join(' ');
+
+        try {
+        member.setNickname(nick)
+        const embed = new MessageEmbed()
+            .setColor("GREEN")
+            .setDescription(`**J'ai changé le pseudo de ${member.displayName} en ${nick}**`)
+        message.channel.send(embed)
         }
-    })
-    .catch((err) => console.error(err))
 }
 
 module.exports.help = {
