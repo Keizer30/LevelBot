@@ -41,7 +41,7 @@ fs.readdir("./events/", (error, f) => {
 
 //logs
 
-client.on("channelDeele", function(channel) {
+client.on("channelDelete", function(channel) {
   const embed = new Discord.MessageEmbed()
     .setAuthor(
      "Logs - Salon supprimé",
