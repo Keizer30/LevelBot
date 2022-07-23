@@ -22,7 +22,10 @@ module.exports = {
             .setColor("GREEN")
             .setDescription(`**J'ai changé le pseudo de ${member.displayName} en ${nick}**`)
         message.channel.send(embed)
-        }
+        }catch(e){
+            console.log(e.stack);
+          }
+    }
 }
 
 module.exports.help = {
