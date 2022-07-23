@@ -18,10 +18,7 @@ module.exports = {
 
         try {
         member.setNickname(nick)
-        const embed = new MessageEmbed()
-            .setColor("GREEN")
-            .setDescription(`**J'ai changé le pseudo de ${member.displayName} en ${nick}**`)
-        message.channel.send(embed)
+        message.channel.send(`**J'ai changé le pseudo de ${member.displayName} en ${nick}**`)
         }catch(e){
             console.log(e.stack);
           }
