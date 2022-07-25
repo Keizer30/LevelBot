@@ -4,12 +4,26 @@ const client = new Discord.Client();
 const PREFIX = "+"
 const chalk = require("chalk")
 const fs = require("fs");
-
+const db = require('quick.db')
 
 
 console.log(Date.now())
 
 client.commands = new Discord.Collection();
+
+
+fs.readdir("./events/", (error, f) => {
+  if(error) console.log(error);
+  console.log(chalk.cyan(`${f.length} events en chargement`));
+
+  f.forEach((f) => {
+      const events = require(`./events/${f}`);
+      const event = f.split(".")[0];
+
+    client.on(event, events.bind(null, client));
+  });
+
+});
 
 
 fs.readdir("./commands/", (err, f) => {
@@ -26,18 +40,6 @@ fs.readdir("./commands/", (err, f) => {
     });
 });
 
-fs.readdir("./events/", (error, f) => {
-  if(error) console.log(error);
-  console.log(chalk.cyan(`${f.length} events en chargement`));
-
-  f.forEach((f) => {
-      const events = require(`./events/${f}`);
-      const event = f.split(".")[0];
-
-    client.on(event, events.bind(null, client));
-  });
-
-});
 
 //logs
 
@@ -56,13 +58,14 @@ client.on("channelDelete", function(channel) {
 
 
 client.on("channelCreate", function(channel) {
+
+  if (channel.type === "dm") return;
   const embed = new Discord.MessageEmbed()
     .setAuthor(
-     "logs - Salon créé",
-      channel.guild.iconURL()
+     "logs - Salon créé", guild.iconURL()
     )
     .setDescription(
-      `un salon vient d'être créé "**#${channel.name}**" est c'et un salon de type **${channel.type}**`
+      `un salon vient d'être créé "**#${channel.name}**" est c'est un salon de type **${channel.type}**`
     )
     .setColor("GREEN");
   return client.channels.cache.get("996524278671474718").send(embed);
@@ -159,7 +162,7 @@ client.on("roleDelete", function(role) {
 });
 
 client.on("roleUpdate", function(oldRole, newRole) {
-  let description;
+  let description
 
   if (oldRole.name === newRole.name) {
     description = `Le rôle **${oldRole.name}** vient d’être mis à jour, cela peut inclure une autorisation ou une couleur.`;
@@ -173,6 +176,8 @@ client.on("roleUpdate", function(oldRole, newRole) {
     .setColor("BLUE");
   return client.channels.cache.get("996524278671474718").send(embed);
 });
+
+
 
 
 

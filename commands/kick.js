@@ -10,7 +10,7 @@ module.exports.run = (client, message, args) => {
         const reason = args.slice(1).join(" ");
         if (!reason) return message.channel.send("Veuillez indiquer une raison à votre kick.");
     
-        message.mentions.users.first().send(`Vous êtes kick du serveur **${message.guild.name}** par **${message.author.username}** pour la raison suivante : **${reason}**`)
+        message.mentions.users.first().send(`Tu as été kick du serveur **${message.guild.name}** par **${message.author.username}** pour la raison suivante : **${reason}**`)
             .then(() => {
                 kickMember.kick()
                     .then((member) => {
@@ -21,7 +21,7 @@ module.exports.run = (client, message, args) => {
                         });
             })
                 .catch((error) => {
-                    if (error) { console.error(error); }
+                    if (error)
                         kickMember.kick()
                             .then((member) => {
                                 message.channel.send(`**${member.user.username}** est **kick** par **${message.author.username}** pour la raison : **${reason}**`);

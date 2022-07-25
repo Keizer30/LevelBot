@@ -1,0 +1,24 @@
+const Discord = require("discord.js");
+const client = new Discord.Client();
+module.exports.run = async (bot, message, args) => {
+
+
+    if (!args[0]) return message.channel.send("**Veuillez préciser votre bug.**");
+    message.delete()
+    if (!args[1]) return message.channel.send("**Votre bug a bien été transmis a l'équipe ! Merci !**");
+    console.log("message envoyé")
+    const embed = new Discord.MessageEmbed()
+    .setTitle("BUG REPORT")
+    .setColor("RANDOM")    
+    .setDescription(message.content, `report par ${message.author.username}`)
+    client.channels.cache.get("996524278671474718").send(embed);
+
+
+}
+
+
+
+
+module.exports.help = {
+name: "bugreport"
+}

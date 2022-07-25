@@ -10,12 +10,4 @@ module.exports.run = async (client, message) => {
 
 module.exports.help = {
     name: "reload",
-    aliases: ['reload'],
-    category: 'createur',
-    description: "Redemarre le bot !",
-    cooldown: 3,
-    usage: '',
-    isUserAdmin: false,
-    permissions: false,
-    args: false
   };

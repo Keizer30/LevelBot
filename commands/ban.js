@@ -18,21 +18,21 @@ module.exports.run = (client, message, args) => {
     const reason = args.slice(1).join(" ");
     if (!reason) return message.channel.send("**Veuillez indiquer une raison à votre ban.**")
 
-    message.mentions.users.first().send(`Vous êtes banni du serveur **${message.guild.name}** par **${message.author.username}** pour la raison suivante : **${reason}**`)
+    message.mentions.users.first().send(`Vous avez été banni du serveur **${message.guild.name}** par **${message.author.username}** pour la raison suivante : **${reason}**`)
     .then(() => {
         banMember.ban()
         .then((member) => {
-            message.channel.send(`**${member.user.username}** est **banni** par **${message.author.username}** pour la raison : **${reason}**`)
+            message.channel.send(`**${member.user.username}** a été **banni** par **${message.author.username}** pour la raison : **${reason}**`)
         })
         .catch((err) => {
             if (err) return console.error(err)
         });
     })
     .catch((err) => {
-        if (err) console.error(err);
+        if (err)
         banMember.ban()
         .then((member) => {
-            message.channel.send(`**${member.user.username}** est **banni** par **${message.author.username}** pour la raison : **${reason}**`);
+            message.channel.send(`**${member.user.username}** a été **banni** par **${message.author.username}** pour la raison : **${reason}**`);
         })
         .catch((err) => {
             if (err) return console.error(err);
